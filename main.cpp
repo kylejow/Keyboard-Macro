@@ -14,6 +14,8 @@ key codes       https://learn.microsoft.com/en-us/windows/win32/inputdev/virtual
 
 #include "display.h"
 #include "json.hpp"
+#include "keyboard.h"
+#include "menu.h"
 
 using std::cout;
 using std::cin;
