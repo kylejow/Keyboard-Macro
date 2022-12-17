@@ -29,7 +29,7 @@ int main(){
     std::ifstream load("profile.json");
     if(load){
         savedMacros = nlohmann::ordered_json::parse(load);
-        //saveToFile("backup.json", savedMacros);
+        saveToFile("backup.json", savedMacros);
     }
     load.close();
     string input;
@@ -47,10 +47,10 @@ int main(){
         cin >> input;
         system("cls");
         if(input == "1"){
-            // if(printSavedTargets(savedMacros)){
-            //     continue;
-            // }
-            // string name = chooseFromSaved(savedMacros);
+            if(printSavedTargets(savedMacros)){
+                continue;
+            }
+            string name = chooseFromSaved(savedMacros);
             
             // load
 
@@ -62,39 +62,43 @@ int main(){
             string name;
             cout << "Enter macro name: ";
             cin >> name;
-            //saveToFile("profile.json", savedMacros);
+            string prompt = "Enter char: ";
+            char c = getCharInput(prompt);
+
+
+            saveToFile("profile.json", savedMacros);
         }else if(input == "3"){
-            // if(printSavedTargets(savedMacros)){
-            //     continue;
-            // }
-            // system("pause");
-            // continue;
+            if(printSavedTargets(savedMacros)){
+                continue;
+            }
+            system("pause");
+            continue;
         }else if(input == "4"){
-            // if(printSavedTargets(savedMacros)){
-            //     continue;
-            // }
-            // string name = chooseFromSaved(savedMacros);
+            if(printSavedTargets(savedMacros)){
+                continue;
+            }
+            string name = chooseFromSaved(savedMacros);
             
             system("pause");
         }else if(input == "5"){
-            // if(printSavedTargets(savedMacros)){
-            //     continue;
-            // }
+            if(printSavedTargets(savedMacros)){
+                continue;
+            }
             
-            //saveToFile("profile.json", savedMacros);
+            saveToFile("profile.json", savedMacros);
         }else if(input == "6"){
-            // if(printSavedTargets(savedMacros)){
-            //     continue;
-            // }
-            // savedMacros.erase(chooseFromSaved(savedMacros));
-            // saveToFile("profile.json", savedMacros);
+            if(printSavedTargets(savedMacros)){
+                continue;
+            }
+            savedMacros.erase(chooseFromSaved(savedMacros));
+            saveToFile("profile.json", savedMacros);
         }else if(input == "7"){
             cout << "Enter backup filename: ";
             cin >> filename;
             std::ifstream load(filename);
             if(load){
                 savedMacros = nlohmann::ordered_json::parse(load);
-                // saveToFile("profile.json", savedMacros);
+                saveToFile("profile.json", savedMacros);
             }else{
                 system("cls");
                 cout << "File does not exist\n\n";
@@ -104,7 +108,7 @@ int main(){
         }else if(input == "8"){
             cout << "Enter backup filename: ";
             cin >> filename;
-            //saveToFile(filename, savedMacros);
+            saveToFile(filename, savedMacros);
         }else if(input == "q"){
             break;
         }

@@ -25,6 +25,37 @@ int getIntInput(std::string& prompt){
     return i;
 }
 
+char getCharInput(std::string& prompt){
+    system("cls");
+    std::string str;
+    std::cout << prompt;
+    std::cin >> str;
+    while(str.size() != 1){
+        system("cls");
+        std::cout << prompt;
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+        std::cin >> str;
+    }
+    system("cls");
+    return str[0];
+}
+
+template <typename T> void getInput(T& input, std::string& prompt){
+    system("cls");
+    std::cout << prompt;
+    std::cin >> input;
+    while(std::cin.fail()){
+        system("cls");
+        std::cout << prompt;
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+        std::cin >> input;
+    }
+    system("cls");
+    return;
+}
+
 void saveToFile(std::string filename, nlohmann::ordered_json& savedMacros){
     std::ofstream save(filename);
     save << savedMacros.dump(1) + "\n";
