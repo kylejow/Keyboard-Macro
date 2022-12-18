@@ -9,6 +9,10 @@
 #include <fstream>
 
 #include "json.hpp"
+#include "display.h"
+
+using std::cout;
+using std::cin;
 
 void stopProgram(std::atomic_bool& stop);
 int getIntInput(std::string& prompt);

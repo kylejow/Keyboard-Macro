@@ -12,14 +12,14 @@ void stopProgram(std::atomic_bool& stop){
 int getIntInput(std::string& prompt){
     system("cls");
     int i;
-    std::cout << prompt;
-    std::cin >> i;
-    while(std::cin.fail()){
+    cout << prompt;
+    cin >> i;
+    while(cin.fail()){
         system("cls");
-        std::cout << prompt;
-        std::cin.clear();
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
-        std::cin >> i;
+        cout << prompt;
+        cin.clear();
+        cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+        cin >> i;
     }
     system("cls");
     return i;
@@ -27,15 +27,19 @@ int getIntInput(std::string& prompt){
 
 char getCharInput(std::string& prompt){
     system("cls");
+    cout << "sadinadsa\n";
     std::string str;
-    std::cout << prompt;
-    std::cin >> str;
+    cout << prompt;
+    cin >> str;
+    
     while(str.size() != 1){
-        system("cls");
-        std::cout << prompt;
-        std::cin.clear();
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
-        std::cin >> str;
+        //system("cls");
+        
+        cin.clear();
+        cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+        clearLastLine();
+        cout << prompt;
+        cin >> str;
     }
     system("cls");
     return str[0];
@@ -43,14 +47,14 @@ char getCharInput(std::string& prompt){
 
 template <typename T> void getInput(T& input, std::string& prompt){
     system("cls");
-    std::cout << prompt;
-    std::cin >> input;
-    while(std::cin.fail()){
+    cout << prompt;
+    cin >> input;
+    while(cin.fail()){
         system("cls");
-        std::cout << prompt;
-        std::cin.clear();
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
-        std::cin >> input;
+        cout << prompt;
+        cin.clear();
+        cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+        cin >> input;
     }
     system("cls");
     return;
