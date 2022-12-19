@@ -10,38 +10,30 @@ void stopProgram(std::atomic_bool& stop){
 }
 
 int getIntInput(std::string& prompt){
-    system("cls");
     int i;
     cout << prompt;
     cin >> i;
     while(cin.fail()){
-        system("cls");
-        cout << prompt;
         cin.clear();
         cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+        clearLastLine();
+        cout << prompt;
         cin >> i;
     }
-    system("cls");
     return i;
 }
 
 char getCharInput(std::string& prompt){
-    system("cls");
-    cout << "sadinadsa\n";
     std::string str;
     cout << prompt;
     cin >> str;
-    
     while(str.size() != 1){
-        //system("cls");
-        
         cin.clear();
         cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
         clearLastLine();
         cout << prompt;
         cin >> str;
     }
-    system("cls");
     return str[0];
 }
 
@@ -58,6 +50,21 @@ template <typename T> void getInput(T& input, std::string& prompt){
     }
     system("cls");
     return;
+}
+
+char getYNInput(std::string& prompt){
+    std::string str;
+    cout << prompt;
+    cin >> str;
+    while(1){
+        if(str[0] == 'y' || str[0] == 'n') break;
+        cin.clear();
+        cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+        clearLastLine();
+        cout << prompt;
+        cin >> str;
+    }
+    return str[0];
 }
 
 void saveToFile(std::string filename, nlohmann::ordered_json& savedMacros){

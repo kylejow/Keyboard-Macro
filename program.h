@@ -17,6 +17,7 @@ using std::cin;
 void stopProgram(std::atomic_bool& stop);
 int getIntInput(std::string& prompt);
 char getCharInput(std::string& prompt);
+char getYNInput(std::string& prompt);
 void saveToFile(std::string filename, nlohmann::ordered_json& savedMacros);
 
 #endif
