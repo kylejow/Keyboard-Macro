@@ -3,6 +3,7 @@
 #include "keyboard.h"
 
 nlohmann::ordered_json createMacro(void){
+    system("cls");
     nlohmann::ordered_json macro;
     string a = "Enter key: ",
            b = "Enter keypress duration in milliseconds: ",
@@ -24,6 +25,9 @@ nlohmann::ordered_json createMacro(void){
         holds.push_back(getIntInput(b));
         delays.push_back(getIntInput(c));
     }
+    macro["keys"] = keys;
+    macro["holds"] = holds;
+    macro["delays"] = delays;
     return macro;
 }
 

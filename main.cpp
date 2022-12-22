@@ -62,9 +62,7 @@ int main(){
             string name;
             cout << "Enter macro name: ";
             cin >> name;
-            string prompt = "Enter char: ";
-            createMacro();
-
+            savedMacros[name] = createMacro();
             saveToFile("profile.json", savedMacros);
         }else if(input == "3"){
             if(printSavedTargets(savedMacros)){
