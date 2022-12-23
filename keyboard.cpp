@@ -12,18 +12,16 @@ nlohmann::ordered_json createMacro(void){
     vector<char> keys;
     vector<int> holds;
     vector<int> delays;
-    string stop;
-    keys.push_back(getCharInput(a));
-    holds.push_back(getIntInput(b));
-    delays.push_back(getIntInput(c));
-    while(1){
+    bool stop = false;
+    while(!stop){
         system("cls");
-        printCurrent(keys, holds, delays);
-        if(getYNInput(d) == 'y') break;
-        //clearLastLine();
+        printMacro(keys, holds, delays);
+        cout << "\n";
         keys.push_back(getCharInput(a));
         holds.push_back(getIntInput(b));
         delays.push_back(getIntInput(c));
+        cout << "\n";
+        if(getYNInput(d) == 'y') stop = true;
     }
     macro["keys"] = keys;
     macro["holds"] = holds;
@@ -31,7 +29,7 @@ nlohmann::ordered_json createMacro(void){
     return macro;
 }
 
-void printCurrent(vector<char>& keys, vector<int>& holds, vector<int>& delays){
+void printMacro(vector<char>& keys, vector<int>& holds, vector<int>& delays){
     for(unsigned long long int i = 0; i < keys.size(); i++){
         cout << keys[i]   << " {down}\n"
              << holds[i]  << "ms\n"

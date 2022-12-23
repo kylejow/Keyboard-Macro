@@ -18,6 +18,6 @@ using std::cout;
 using std::string;
 
 nlohmann::ordered_json createMacro(void);
-void printCurrent(vector<char>& keys, vector<int>& holds, vector<int>& delays);
+void printMacro(vector<char>& keys, vector<int>& holds, vector<int>& delays);
 
 #endif

@@ -38,7 +38,7 @@ int main(){
         cout << "1. Run saved macro\n"
              << "2. Create new macro\n"
              << "3. View macro list\n"
-             << "4. View macro content\n"
+             << "4. Print macro\n"
              << "5. Edit macro\n"
              << "6. Delete macro\n"
              << "7. Load profile\n"
@@ -75,7 +75,11 @@ int main(){
                 continue;
             }
             string name = chooseFromSaved(savedMacros);
-            
+            system("cls");
+            vector<char> keys = savedMacros[name]["keys"];
+            vector<int> holds = savedMacros[name]["holds"];
+            vector<int> delays = savedMacros[name]["delays"];
+            printMacro(keys, holds, delays);
             system("pause");
         }else if(input == "5"){
             if(printSavedTargets(savedMacros)){
