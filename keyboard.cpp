@@ -1,4 +1,5 @@
 //https://en.cppreference.com/w/cpp/thread/sleep_for
+//https://www.asciitable.com/
 
 #include "keyboard.h"
 
@@ -8,7 +9,7 @@ nlohmann::ordered_json createMacro(void){
     string a = "Enter key: ",
            b = "Enter keypress duration in milliseconds: ",
            c = "Enter delay in milliseconds: ",
-           d = "Exit and save? y/n: ";
+           d = "Finish and save? y/n: ";
     vector<char> keys;
     vector<int> holds;
     vector<int> delays;
@@ -35,6 +36,47 @@ void printMacro(vector<char>& keys, vector<int>& holds, vector<int>& delays){
              << holds[i]  << "ms\n"
              << keys[i]   << " {up}\n"
              << delays[i] << "ms\n";
+    }
+    return;
+}
+
+void sendChar(char c, int duration){
+    int code = (int)c;
+    if(code >= (int)0x30 && code <= (int)0x5A){
+        sendVK(code, duration);
+    }else{
+        
+    }
+}
+
+void sendVK(int VK, int duration){
+    INPUT down[1] = {0};
+    down[0].type = INPUT_KEYBOARD;
+    down[0].ki.wVk = VK;
+    SendInput(ARRAYSIZE(down), down, sizeof(INPUT));
+    Sleep(duration);
+    INPUT up[1] = {0};
+    up[0].type = INPUT_KEYBOARD;
+    up[0].ki.wVk = VK;
+    up[0].ki.dwFlags = KEYEVENTF_KEYUP;
+    SendInput(ARRAYSIZE(up), up, sizeof(INPUT));
+    return;
+}
+
+void sendVKCombo(vector<int> VKs, int duration){
+    for(auto i : VKs){
+        INPUT down[1] = {0};
+        down[0].type = INPUT_KEYBOARD;
+        down[0].ki.wVk = i;
+        SendInput(ARRAYSIZE(down), down, sizeof(INPUT));
+    }
+    Sleep(duration);
+    for(auto i : VKs){
+        INPUT up[1] = {0};
+        up[0].type = INPUT_KEYBOARD;
+        up[0].ki.wVk = i;
+        up[0].ki.dwFlags = KEYEVENTF_KEYUP;
+        SendInput(ARRAYSIZE(up), up, sizeof(INPUT));
     }
     return;
 }
