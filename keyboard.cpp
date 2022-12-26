@@ -1,5 +1,6 @@
 //https://en.cppreference.com/w/cpp/thread/sleep_for
 //https://www.asciitable.com/
+//https://learn.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes
 
 #include "keyboard.h"
 
@@ -45,7 +46,36 @@ void sendChar(char c, int duration){
     if(code >= (int)0x30 && code <= (int)0x5A){
         sendVK(code, duration);
     }else{
+        vector<int> specialChar = {VK_SHIFT};
+        switch (c)
+        {
+        case ' ':
+            sendVK(0x21, duration);
+            break;
+        case '!':
+            specialChar.push_back(0x31);
+            sendVKCombo(specialChar, duration);
+            break;
+        // case '"':
+        //     specialChar.push_back(0x31);
+        //     sendVKCombo(specialChar, duration);
+        //     break;
+        case '#':
+            specialChar.push_back(0x33);
+            sendVKCombo(specialChar, duration);
+            break;
+        case '$':
+            specialChar.push_back(0x34);
+            sendVKCombo(specialChar, duration);
+            break;
+        case '%':
+            specialChar.push_back(0x35);
+            sendVKCombo(specialChar, duration);
+            break;
         
+        default:
+            break;
+        }
     }
 }
 

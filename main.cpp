@@ -51,11 +51,15 @@ int main(){
                 continue;
             }
             string name = chooseFromSaved(savedMacros);
-            
-            // load
-
+            vector<char> keys = savedMacros[name]["keys"];
+            vector<int> holds = savedMacros[name]["holds"];
+            vector<int> delays = savedMacros[name]["delays"];
             system("cls");
             cout << "Running...\n\n";
+            for(int i = 0; i < keys.size(); i++){
+                sendChar(keys[1], holds[i]);
+                Sleep(delays[i]);
+            }
             system("cls");
             system("pause");
         }else if(input == "2"){
