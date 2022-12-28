@@ -42,41 +42,19 @@ void printMacro(vector<char>& keys, vector<int>& holds, vector<int>& delays){
 }
 
 void sendChar(char c, int duration){
-    int code = (int)c;
-    if(code >= (int)0x30 && code <= (int)0x5A){
-        sendVK(code, duration);
-    }else{
-        vector<int> specialChar = {VK_SHIFT};
-        switch (c)
-        {
-        case ' ':
-            sendVK(0x21, duration);
-            break;
-        case '!':
-            specialChar.push_back(0x31);
-            sendVKCombo(specialChar, duration);
-            break;
-        // case '"':
-        //     specialChar.push_back(0x31);
-        //     sendVKCombo(specialChar, duration);
-        //     break;
-        case '#':
-            specialChar.push_back(0x33);
-            sendVKCombo(specialChar, duration);
-            break;
-        case '$':
-            specialChar.push_back(0x34);
-            sendVKCombo(specialChar, duration);
-            break;
-        case '%':
-            specialChar.push_back(0x35);
-            sendVKCombo(specialChar, duration);
-            break;
-        
-        default:
-            break;
-        }
-    }
+    INPUT down[1] = {0};
+    down[0].type = INPUT_KEYBOARD;
+    down[0].ki.wVk = 0;
+    down[0].ki.wScan = (short)c;
+    down[0].ki.dwFlags = KEYEVENTF_UNICODE;
+    SendInput(ARRAYSIZE(down), down, sizeof(INPUT));
+    Sleep(duration);
+    INPUT up[1] = {0};
+    up[0].type = INPUT_KEYBOARD;
+    up[0].ki.wVk = 0;
+    up[0].ki.wScan = (short)c;
+    up[0].ki.dwFlags = KEYEVENTF_UNICODE | KEYEVENTF_KEYUP;
+    SendInput(ARRAYSIZE(up), up, sizeof(INPUT));
 }
 
 void sendVK(int VK, int duration){
