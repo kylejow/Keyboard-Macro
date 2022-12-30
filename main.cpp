@@ -33,6 +33,7 @@ int main(){
     }
     load.close();
     string input;
+    int startDelay = 1500;
     while(1){
         system("cls");
         cout << "1. Run saved macro\n"
@@ -43,6 +44,7 @@ int main(){
              << "6. Delete macro\n"
              << "7. Load profile\n"
              << "8. Export profile\n"
+             << "9. Change macro execute delay (current = " << startDelay << "ms)\n"
              << "\n\nq to quit\n\n";
         cin >> input;
         system("cls");
@@ -55,9 +57,10 @@ int main(){
             vector<int> holds = savedMacros[name]["holds"];
             vector<int> delays = savedMacros[name]["delays"];
             system("cls");
+            Sleep(startDelay);
             cout << "Running...\n\n";
-            for(int i = 0; i < keys.size(); i++){
-                sendChar(keys[1], holds[i]);
+            for(unsigned long long int i = 0; i < keys.size(); i++){
+                sendChar(keys[i], holds[i]);
                 Sleep(delays[i]);
             }
             system("cls");
@@ -114,6 +117,9 @@ int main(){
             cout << "Enter backup filename: ";
             cin >> filename;
             saveToFile(filename, savedMacros);
+        }else if(input == "9"){
+            string s = "New macro execute delay in milliseconds: ";
+            startDelay = getIntInput(s);
         }else if(input == "q"){
             break;
         }
