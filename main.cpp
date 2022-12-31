@@ -40,7 +40,7 @@ int main(){
              << "2. Create new macro\n"
              << "3. View macro list\n"
              << "4. Print macro\n"
-             << "5. Edit macro\n"
+             << "5. Edit macro delays\n"
              << "6. Delete macro\n"
              << "7. Load profile\n"
              << "8. Export profile\n"
@@ -60,7 +60,11 @@ int main(){
             Sleep(startDelay);
             cout << "Running...\n\n";
             for(unsigned long long int i = 0; i < keys.size(); i++){
+                cout << keys[i]   << " {down}\n"
+                     << "Waiting " << holds[i]  << "ms\n";
                 sendChar(keys[i], holds[i]);
+                cout << keys[i]   << " {up}\n";
+                cout << "Waiting " << delays[i] << "ms\n";
                 Sleep(delays[i]);
             }
             system("cls");
@@ -92,7 +96,24 @@ int main(){
             if(printSavedTargets(savedMacros)){
                 continue;
             }
-            
+            string name = chooseFromSaved(savedMacros);
+            system("cls");
+            vector<char> keys = savedMacros[name]["keys"];
+            vector<int> holds = savedMacros[name]["holds"];
+            vector<int> delays = savedMacros[name]["delays"];
+            int num = 1;
+            for(unsigned long long int i = 0; i < keys.size(); i++){
+                cout << "   "<< keys[i]   << " {down}\n"
+                     << num++ << ". " << "Waiting " << holds[i]  << "ms\n"
+                        "   " << keys[i]   << " {up}\n"
+                     << num++ << ". " << "Waiting " << delays[i] << "ms\n";
+            }
+
+
+
+
+
+            system("pause");
             saveToFile("profile.json", savedMacros);
         }else if(input == "6"){
             if(printSavedTargets(savedMacros)){

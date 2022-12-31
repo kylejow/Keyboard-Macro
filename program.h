@@ -13,6 +13,7 @@
 
 using std::cout;
 using std::cin;
+using std::string;
 
 void stopProgram(std::atomic_bool& stop);
 int getIntInput(std::string& prompt);

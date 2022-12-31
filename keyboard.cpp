@@ -33,10 +33,10 @@ nlohmann::ordered_json createMacro(void){
 
 void printMacro(vector<char>& keys, vector<int>& holds, vector<int>& delays){
     for(unsigned long long int i = 0; i < keys.size(); i++){
-        cout << keys[i]   << " {down}\n"
-             << holds[i]  << "ms\n"
-             << keys[i]   << " {up}\n"
-             << delays[i] << "ms\n";
+        cout << i*4+1 << ". "<< keys[i]   << " {down}\n"
+             << i*4+2 << ". " << "Waiting " << holds[i]  << "ms\n"
+             << i*4+3 << ". " << keys[i]   << " {up}\n"
+             << i*4+4 << ". " << "Waiting " << delays[i] << "ms\n";
     }
     return;
 }
