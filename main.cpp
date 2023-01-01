@@ -24,7 +24,7 @@ using std::vector;
 using std::ref;
 
 int main(){
-    string filename;
+    string filename, prompt;
     nlohmann::ordered_json savedMacros;
     std::ifstream load("profile.json");
     if(load){
@@ -91,6 +91,7 @@ int main(){
             vector<int> holds = savedMacros[name]["holds"];
             vector<int> delays = savedMacros[name]["delays"];
             printMacro(keys, holds, delays);
+            cout << "\n\n";
             system("pause");
         }else if(input == "5"){
             if(printSavedTargets(savedMacros)){
@@ -108,8 +109,14 @@ int main(){
                         "   " << keys[i]   << " {up}\n"
                      << num++ << ". " << "Waiting " << delays[i] << "ms\n";
             }
-
-
+            cout << "\n\n";
+            int newTime = selectDelay(keys.size());
+            prompt = "New delay in milliseconds: ";
+            if(newTime%2){
+                savedMacros[name]["holds"][newTime/2] = getIntInput(prompt);
+            }else{
+                savedMacros[name]["delays"][newTime/2-1] = getIntInput(prompt);
+            }
 
 
 
@@ -139,8 +146,8 @@ int main(){
             cin >> filename;
             saveToFile(filename, savedMacros);
         }else if(input == "9"){
-            string s = "New macro execute delay in milliseconds: ";
-            startDelay = getIntInput(s);
+            prompt = "New macro execute delay in milliseconds: ";
+            startDelay = getIntInput(prompt);
         }else if(input == "q"){
             break;
         }

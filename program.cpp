@@ -74,11 +74,12 @@ void saveToFile(std::string filename, nlohmann::ordered_json& savedMacros){
 }
 
 int selectDelay(int keys){
-    string prompt = "\n\nSelect delay to edit: ";
+    string prompt = "Select delay to edit: ";
     int i = INT_MIN;
     cout << prompt;
     cin >> i;
-    while(cin.fail() || i ){
+    while(cin.fail() || i < 1 || i > keys*2){
+
         cin.clear();
         cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
         clearLastLine();
