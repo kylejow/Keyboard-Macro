@@ -88,3 +88,20 @@ void sendVKCombo(vector<int> VKs, int duration){
     }
     return;
 }
+
+void sendVKDown(int VK){
+    INPUT down[1] = {0};
+    down[0].type = INPUT_KEYBOARD;
+    down[0].ki.wVk = VK;
+    SendInput(ARRAYSIZE(down), down, sizeof(INPUT));
+    return;
+}
+
+void sendVKUp(int VK){
+    INPUT up[1] = {0};
+    up[0].type = INPUT_KEYBOARD;
+    up[0].ki.wVk = VK;
+    up[0].ki.dwFlags = KEYEVENTF_KEYUP;
+    SendInput(ARRAYSIZE(up), up, sizeof(INPUT));
+    return;
+}

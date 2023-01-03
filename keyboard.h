@@ -22,5 +22,7 @@ void printMacro(vector<char>& keys, vector<int>& holds, vector<int>& delays);
 void sendChar(char c, int duration);
 void sendVK(int VK, int duration);
 void sendVKCombo(vector<int> VKs, int duration);
+void sendVKDown(int VK);
+void sendVKUp(int VK);
 
 #endif
