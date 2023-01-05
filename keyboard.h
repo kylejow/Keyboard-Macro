@@ -7,6 +7,7 @@
 #include <thread>
 #include <chrono>
 #include <iostream>
+#include <tuple>
 
 #include "program.h"
 #include "display.h"
@@ -16,6 +17,7 @@ using std::vector;
 using std::thread;
 using std::cout;
 using std::string;
+using std::tuple;
 
 nlohmann::ordered_json createMacro(void);
 void printMacro(vector<char>& keys, vector<int>& holds, vector<int>& delays);

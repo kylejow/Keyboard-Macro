@@ -45,6 +45,7 @@ int main(){
              << "7. Load profile\n"
              << "8. Export profile\n"
              << "9. Change macro execute delay (current = " << startDelay << "ms)\n"
+             << "10. View key archive\n"
              << "\n\nq to quit\n\n";
         cin >> input;
         system("cls");
@@ -117,10 +118,6 @@ int main(){
             }else{
                 savedMacros[name]["delays"][newTime/2-1] = getIntInput(prompt);
             }
-
-
-
-            system("pause");
             saveToFile("profile.json", savedMacros);
         }else if(input == "6"){
             if(printSavedTargets(savedMacros)){
@@ -148,6 +145,14 @@ int main(){
         }else if(input == "9"){
             prompt = "New macro execute delay in milliseconds: ";
             startDelay = getIntInput(prompt);
+        }else if(input == "10"){
+
+
+
+
+
+
+            
         }else if(input == "q"){
             break;
         }
