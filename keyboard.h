@@ -26,5 +26,12 @@ void sendVK(int VK, int duration);
 void sendVKCombo(vector<int> VKs, int duration);
 void sendVKDown(int VK);
 void sendVKUp(int VK);
+class VKs{
+    public:
+        VKs(void);
+        void printArchive(void);
+    private:
+        const vector<tuple<string, int>> archive;
+};
 
 #endif

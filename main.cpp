@@ -146,13 +146,9 @@ int main(){
             prompt = "New macro execute delay in milliseconds: ";
             startDelay = getIntInput(prompt);
         }else if(input == "10"){
-
-
-
-
-
-
-            
+            VKs VKs;
+            VKs.printArchive();
+            system("pause");
         }else if(input == "q"){
             break;
         }
