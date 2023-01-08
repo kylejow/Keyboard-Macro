@@ -4,7 +4,7 @@
 
 #include "keyboard.h"
 
-nlohmann::ordered_json createMacro(void){
+nlohmann::ordered_json createBasic(void){
     system("cls");
     nlohmann::ordered_json macro;
     string a = "Enter key: ",
@@ -17,7 +17,7 @@ nlohmann::ordered_json createMacro(void){
     bool stop = false;
     while(!stop){
         system("cls");
-        printMacro(keys, holds, delays);
+        printBasic(keys, holds, delays);
         cout << "\n";
         keys.push_back(getCharInput(a));
         holds.push_back(getIntInput(b));
@@ -28,10 +28,40 @@ nlohmann::ordered_json createMacro(void){
     macro["keys"] = keys;
     macro["holds"] = holds;
     macro["delays"] = delays;
+    macro["type"] = "basic";
     return macro;
 }
 
-void printMacro(vector<char>& keys, vector<int>& holds, vector<int>& delays){
+nlohmann::ordered_json createAdvanced(void){
+    system("cls");
+    cout << "WARNING: ENSURE EVERY KEY PRESS HAS A KEY RELEASE\n";
+    nlohmann::ordered_json macro;
+    string a = "Enter key: ",
+           b = "Enter  duration in milliseconds: ",
+           fin = "Finish and save? y/n: ";
+    vector<char> keys;
+    vector<int> holds;
+    vector<int> delays;
+    bool stop = false;
+    while(!stop){
+        system("cls");
+        //printAdv(keys, holds, delays);
+        cout << "\n";
+        
+
+
+
+        cout << "\n";
+        if(getYNInput(fin) == 'y') stop = true;
+    }
+
+
+    
+    macro["type"] = "advanced";
+    return macro;
+}
+
+void printBasic(vector<char>& keys, vector<int>& holds, vector<int>& delays){
     for(unsigned long long int i = 0; i < keys.size(); i++){
         cout << i*4+1 << ". "<< keys[i]   << " {down}\n"
              << i*4+2 << ". " << "Waiting " << holds[i]  << "ms\n"
@@ -108,7 +138,7 @@ void sendVKUp(int VK){
 
 void VKs::printArchive(void){
     system("cls");
-    cout << "Keys:\n\n";
+    cout << "Keys:\n\n0-9\na-z\n";
     for(unsigned long long int i = 0; i < archive.size(); i++){
         cout << std::get<0>(archive[i]) << "\n";
     }
@@ -168,4 +198,29 @@ VKs::VKs() : archive ({{"backspace", VK_BACK},
                         {"stopmedia", VK_MEDIA_STOP},
                         {"playpausemedia", VK_MEDIA_PLAY_PAUSE},
                         {"launchmail", VK_LAUNCH_MAIL},
-                        {"selectmedia", VK_LAUNCH_MEDIA_SELECT}}){}
+                        {"selectmedia", VK_LAUNCH_MEDIA_SELECT},
+                        {"f1", VK_F1},
+                        {"f2", VK_F2},
+                        {"f3", VK_F3},
+                        {"f4", VK_F4},
+                        {"f5", VK_F5},
+                        {"f6", VK_F6},
+                        {"f7", VK_F7},
+                        {"f8", VK_F8},
+                        {"f9", VK_F9},
+                        {"f10", VK_F10},
+                        {"f11", VK_F11},
+                        {"f12", VK_F12},
+                        {"f13", VK_F13},
+                        {"f14", VK_F14},
+                        {"f15", VK_F15},
+                        {"f16", VK_F16},
+                        {"f17", VK_F17},
+                        {"f18", VK_F18},
+                        {"f19", VK_F19},
+                        {"f20", VK_F20},
+                        {"f21", VK_F21},
+                        {"f22", VK_F22},
+                        {"f23", VK_F23},
+                        {"f24", VK_F24}
+                        }){}

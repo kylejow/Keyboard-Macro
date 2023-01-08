@@ -19,8 +19,9 @@ using std::cout;
 using std::string;
 using std::tuple;
 
-nlohmann::ordered_json createMacro(void);
-void printMacro(vector<char>& keys, vector<int>& holds, vector<int>& delays);
+nlohmann::ordered_json createBasic(void);
+nlohmann::ordered_json createAdvanced(void);
+void printBasic(vector<char>& keys, vector<int>& holds, vector<int>& delays);
 void sendChar(char c, int duration);
 void sendVK(int VK, int duration);
 void sendVKCombo(vector<int> VKs, int duration);

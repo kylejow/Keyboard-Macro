@@ -74,7 +74,7 @@ int main(){
             string name;
             cout << "Enter macro name: ";
             cin >> name;
-            savedMacros[name] = createMacro();
+            savedMacros[name] = createBasic();
             saveToFile("profile.json", savedMacros);
         }else if(input == "3"){
             if(printSavedTargets(savedMacros)){
@@ -88,10 +88,15 @@ int main(){
             }
             string name = chooseFromSaved(savedMacros);
             system("cls");
-            vector<char> keys = savedMacros[name]["keys"];
-            vector<int> holds = savedMacros[name]["holds"];
-            vector<int> delays = savedMacros[name]["delays"];
-            printMacro(keys, holds, delays);
+            if(savedMacros[name]["type"] == "basic"){
+                vector<char> keys = savedMacros[name]["keys"];
+                vector<int> holds = savedMacros[name]["holds"];
+                vector<int> delays = savedMacros[name]["delays"];
+                printBasic(keys, holds, delays);
+            }else{
+                
+            }
+            
             cout << "\n\n";
             system("pause");
         }else if(input == "5"){
