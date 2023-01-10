@@ -36,23 +36,33 @@ nlohmann::ordered_json createAdvanced(void){
     system("cls");
     cout << "WARNING: ENSURE EVERY KEY PRESS HAS A KEY RELEASE\n";
     nlohmann::ordered_json macro;
-    string a = "Enter key: ",
-           b = "Enter  duration in milliseconds: ",
-           fin = "Finish and save? y/n: ";
+    string key = "Enter key: ",
+           delay = "Enter  duration in milliseconds: ",
+           input;
     vector<char> keys;
     vector<int> holds;
     vector<int> delays;
     bool stop = false;
-    while(!stop){
+    while(1){
         system("cls");
-        //printAdv(keys, holds, delays);
-        cout << "\n";
-        
+        cout << "1. Key press\n"
+             << "2. Key release\n"
+             << "3. Add delay\n"
+             << "4. Finish and save\n\n";
+        cin >> input;
+        if(input == "1"){
 
+        }else if(input == "2"){
 
+        }else if(input == "3"){   
 
-        cout << "\n";
-        if(getYNInput(fin) == 'y') stop = true;
+        }else if(input == "4"){
+            system("cls");
+            break;
+        }else{
+            continue;
+        }
+
     }
 
 

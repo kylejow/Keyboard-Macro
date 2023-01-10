@@ -71,10 +71,23 @@ int main(){
             system("cls");
             system("pause");
         }else if(input == "2"){
-            string name;
+            string name, blank = "";
             cout << "Enter macro name: ";
             cin >> name;
-            savedMacros[name] = createBasic();
+            system("cls");
+            cout << "1. Create basic macro (recommended)\n"
+                 << "2. Create advanced macro\n\n\n";
+            int macroType = getIntInRange(blank, 1, 2);
+            switch(macroType){
+            case 1:
+                savedMacros[name] = createBasic();
+                break;
+            case 2:
+                savedMacros[name] = createAdvanced();
+            default:
+                break;
+            }
+            
             saveToFile("profile.json", savedMacros);
         }else if(input == "3"){
             if(printSavedTargets(savedMacros)){
