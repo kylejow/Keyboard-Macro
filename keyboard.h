@@ -22,6 +22,7 @@ using std::tuple;
 nlohmann::ordered_json createBasic(void);
 nlohmann::ordered_json createAdvanced(void);
 void printBasic(vector<char>& keys, vector<int>& holds, vector<int>& delays);
+int getVKInput(VKs Vks);
 void sendChar(char c, int duration);
 void sendVK(int VK, int duration);
 void sendVKCombo(vector<int> VKs, int duration);
@@ -31,6 +32,7 @@ class VKs{
     public:
         VKs(void);
         void printArchive(void);
+        int isVK(string input);
     private:
         const vector<tuple<string, int>> archive;
 };

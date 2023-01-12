@@ -33,16 +33,14 @@ nlohmann::ordered_json createBasic(void){
 }
 
 nlohmann::ordered_json createAdvanced(void){
+    VKs VKs;
     system("cls");
     cout << "WARNING: ENSURE EVERY KEY PRESS HAS A KEY RELEASE\n";
     nlohmann::ordered_json macro;
     string key = "Enter key: ",
            delay = "Enter  duration in milliseconds: ",
            input;
-    vector<char> keys;
-    vector<int> holds;
-    vector<int> delays;
-    bool stop = false;
+    vector<tuple<string, int>> inputs;
     while(1){
         system("cls");
         cout << "1. Key press\n"
@@ -51,20 +49,21 @@ nlohmann::ordered_json createAdvanced(void){
              << "4. Finish and save\n\n";
         cin >> input;
         if(input == "1"){
-
+            //inputs.push_back({"press", getVKInput(VKs)});
         }else if(input == "2"){
-
+            //inputs.push_back({"release", getVKInput(VKs)});
         }else if(input == "3"){   
-
+            inputs.push_back({"delay", getIntInput(delay)});
         }else if(input == "4"){
             system("cls");
             break;
         }else{
             continue;
         }
-
     }
-
+    macro["macro"] = inputs;
+    macro["type"] = "basic";
+    return macro;
 
     
     macro["type"] = "advanced";
@@ -79,6 +78,27 @@ void printBasic(vector<char>& keys, vector<int>& holds, vector<int>& delays){
              << i*4+4 << ". " << "Waiting " << delays[i] << "ms\n";
     }
     return;
+}
+
+int getVKInput(VKs& VKs){
+    string prompt = "Enter key: ", input;
+    cout << prompt;
+    cin >> input;
+    while(1){
+        if(input.length() == 1){
+            //check ascii values
+        }
+        int x = VKs.isVK(input);
+        if(x > -1){
+            return x;
+        }
+        cin.clear();
+        cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+        clearLastLine();
+        cout << prompt;
+        cin >> input;
+    }
+    return 1;
 }
 
 void sendChar(char c, int duration){
@@ -154,6 +174,15 @@ void VKs::printArchive(void){
     }
     cout << "\n\n";
     return;
+}
+
+int VKs::isVK(string input){//returns index of VK from archive, else return -1
+    for(int i = 0; i < archive.size(); i++){
+        if(input == std::get<0>(archive[i])){
+            return std::get<1>(archive[i]);
+        }
+    }
+    return -1;
 }
 
 VKs::VKs() : archive ({{"backspace", VK_BACK},
