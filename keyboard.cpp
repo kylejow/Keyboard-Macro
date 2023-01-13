@@ -49,9 +49,9 @@ nlohmann::ordered_json createAdvanced(void){
              << "4. Finish and save\n\n";
         cin >> input;
         if(input == "1"){
-            //inputs.push_back({"press", getVKInput(VKs)});
+            inputs.push_back({"press", getVKInput(VKs)});
         }else if(input == "2"){
-            //inputs.push_back({"release", getVKInput(VKs)});
+            inputs.push_back({"release", getVKInput(VKs)});
         }else if(input == "3"){   
             inputs.push_back({"delay", getIntInput(delay)});
         }else if(input == "4"){
@@ -86,11 +86,19 @@ int getVKInput(VKs& VKs){
     cin >> input;
     while(1){
         if(input.length() == 1){
-            //check ascii values
-        }
-        int x = VKs.isVK(input);
-        if(x > -1){
-            return x;
+            int str = (int)input[0];
+            if(str >= 97 && str <= 122){//uppercase
+                return str - 32;
+            }else if(str >= 65 && str <= 90){//lowercase
+                return str;
+            }else if(str >= 48 && str <= 57){//number
+                return str;
+            }
+        }else{
+            int x = VKs.isVK(input);
+            if(x > -1){
+                return x;
+            }
         }
         cin.clear();
         cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
@@ -177,7 +185,7 @@ void VKs::printArchive(void){
 }
 
 int VKs::isVK(string input){//returns index of VK from archive, else return -1
-    for(int i = 0; i < archive.size(); i++){
+    for(long long unsigned int i = 0; i < archive.size(); i++){
         if(input == std::get<0>(archive[i])){
             return std::get<1>(archive[i]);
         }

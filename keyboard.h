@@ -19,15 +19,6 @@ using std::cout;
 using std::string;
 using std::tuple;
 
-nlohmann::ordered_json createBasic(void);
-nlohmann::ordered_json createAdvanced(void);
-void printBasic(vector<char>& keys, vector<int>& holds, vector<int>& delays);
-int getVKInput(VKs Vks);
-void sendChar(char c, int duration);
-void sendVK(int VK, int duration);
-void sendVKCombo(vector<int> VKs, int duration);
-void sendVKDown(int VK);
-void sendVKUp(int VK);
 class VKs{
     public:
         VKs(void);
@@ -36,5 +27,15 @@ class VKs{
     private:
         const vector<tuple<string, int>> archive;
 };
+
+nlohmann::ordered_json createBasic(void);
+nlohmann::ordered_json createAdvanced(void);
+void printBasic(vector<char>& keys, vector<int>& holds, vector<int>& delays);
+int getVKInput(VKs& Vks);
+void sendChar(char c, int duration);
+void sendVK(int VK, int duration);
+void sendVKCombo(vector<int> VKs, int duration);
+void sendVKDown(int VK);
+void sendVKUp(int VK);
 
 #endif

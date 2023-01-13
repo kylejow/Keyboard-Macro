@@ -87,7 +87,6 @@ int main(){
             default:
                 break;
             }
-            
             saveToFile("profile.json", savedMacros);
         }else if(input == "3"){
             if(printSavedTargets(savedMacros)){
@@ -123,10 +122,12 @@ int main(){
             vector<int> delays = savedMacros[name]["delays"];
             int num = 1;
             for(unsigned long long int i = 0; i < keys.size(); i++){
-                cout << "   "<< keys[i]   << " {down}\n"
-                     << num++ << ". " << "Waiting " << holds[i]  << "ms\n"
-                        "   " << keys[i]   << " {up}\n"
-                     << num++ << ". " << "Waiting " << delays[i] << "ms\n";
+                cout << "   "<< keys[i]   << " {down}\n";
+                cout << num << ". " << "Waiting " << holds[i]  << "ms\n";
+                num++;
+                cout << "   " << keys[i]   << " {up}\n"
+                     << num << ". " << "Waiting " << delays[i] << "ms\n";
+                num++;
             }
             cout << "\n\n";
             int newTime = selectDelay(keys.size());
