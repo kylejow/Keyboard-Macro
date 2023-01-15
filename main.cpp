@@ -106,10 +106,11 @@ int main(){
                 vector<int> delays = savedMacros[name]["delays"];
                 printBasic(keys, holds, delays);
             }else{
-                
+                vector<tuple<string, int>> inputs = savedMacros[name]["macro"];
+                printAdv(inputs);
             }
             
-            cout << "\n\n";
+            cout << "\n";
             system("pause");
         }else if(input == "5"){
             if(printSavedTargets(savedMacros)){

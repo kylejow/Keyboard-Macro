@@ -31,6 +31,7 @@ class VKs{
 nlohmann::ordered_json createBasic(void);
 nlohmann::ordered_json createAdvanced(void);
 void printBasic(vector<char>& keys, vector<int>& holds, vector<int>& delays);
+void printAdv(vector<tuple<string, int>> inputs);
 int getVKInput(VKs& Vks);
 void sendChar(char c, int duration);
 void sendVK(int VK, int duration);

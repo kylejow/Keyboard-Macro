@@ -18,7 +18,6 @@ nlohmann::ordered_json createBasic(void){
     while(!stop){
         system("cls");
         printBasic(keys, holds, delays);
-        cout << "\n";
         keys.push_back(getCharInput(a));
         holds.push_back(getIntInput(b));
         delays.push_back(getIntInput(c));
@@ -43,6 +42,7 @@ nlohmann::ordered_json createAdvanced(void){
     vector<tuple<string, int>> inputs;
     while(1){
         system("cls");
+        printAdv(inputs);
         cout << "1. Key press\n"
              << "2. Key release\n"
              << "3. Add delay\n"
@@ -62,21 +62,34 @@ nlohmann::ordered_json createAdvanced(void){
         }
     }
     macro["macro"] = inputs;
-    macro["type"] = "basic";
-    return macro;
-
-    
     macro["type"] = "advanced";
     return macro;
 }
 
 void printBasic(vector<char>& keys, vector<int>& holds, vector<int>& delays){
     for(unsigned long long int i = 0; i < keys.size(); i++){
-        cout << i*4+1 << ". "<< keys[i]   << " {down}\n"
+        cout << i*4+1 << ". " << keys[i] << " {down}\n"
              << i*4+2 << ". " << "Waiting " << holds[i]  << "ms\n"
-             << i*4+3 << ". " << keys[i]   << " {up}\n"
+             << i*4+3 << ". " << keys[i] << " {up}\n"
              << i*4+4 << ". " << "Waiting " << delays[i] << "ms\n";
     }
+    cout << "\n";
+    return;
+}
+
+void printAdv(vector<tuple<string, int>> inputs){
+    for(unsigned long long int i = 0; i < inputs.size(); i++){
+        auto type = std::get<0>(inputs[i]);
+        auto x = std::get<1>(inputs[i]);
+        if(type == "press"){
+            cout << i+1 << ". "<< x << " {down}\n";
+        }else if(type == "release"){
+            cout << i+1 << ". "<< x << " {up}\n";
+        }else if(type == "delay"){
+            cout << i+1 << ". " << "Waiting " << x << "ms\n";
+        }
+    }
+    cout << "\n";
     return;
 }
 
