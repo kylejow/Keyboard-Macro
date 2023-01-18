@@ -54,22 +54,43 @@ int main(){
                 continue;
             }
             string name = chooseFromSaved(savedMacros);
-            vector<char> keys = savedMacros[name]["keys"];
-            vector<int> holds = savedMacros[name]["holds"];
-            vector<int> delays = savedMacros[name]["delays"];
             system("cls");
-            Sleep(startDelay);
-            cout << "Running...\n\n";
-            for(unsigned long long int i = 0; i < keys.size(); i++){
-                cout << keys[i]   << " {down}\n"
-                     << "Waiting " << holds[i]  << "ms\n";
-                sendChar(keys[i], holds[i]);
-                cout << keys[i]   << " {up}\n";
-                cout << "Waiting " << delays[i] << "ms\n";
-                Sleep(delays[i]);
+            if(savedMacros[name]["type"] == "basic"){
+                vector<char> keys = savedMacros[name]["keys"];
+                vector<int> holds = savedMacros[name]["holds"];
+                vector<int> delays = savedMacros[name]["delays"];
+                system("cls");
+                Sleep(startDelay);
+                cout << "Running...\n\n";
+                for(unsigned long long int i = 0; i < keys.size(); i++){
+                    cout << keys[i]   << " {down}\n"
+                        << "Waiting " << holds[i]  << "ms\n";
+                    sendChar(keys[i], holds[i]);
+                    cout << keys[i]   << " {up}\n";
+                    cout << "Waiting " << delays[i] << "ms\n";
+                    Sleep(delays[i]);
+                }
+            }else{// if(savedMacros[name]["type"] == "advanced"){
+                vector<tuple<string, int>> inputs = savedMacros[name]["macro"];
+                for(unsigned long long int i = 0; i < inputs.size(); i++){
+                    auto type = std::get<0>(inputs[i]);
+                    auto x = std::get<1>(inputs[i]);
+                    if(type == "press"){
+                        cout << x << " {down}\n";
+                        sendVKDown(x);
+                    }else if(type == "release"){
+                        cout << x << " {up}\n";
+                        sendVKUp(x);
+                    }else if(type == "delay"){
+                        cout << "Waiting " << x << "ms\n";
+                        Sleep(x);
+                    }
+                }
             }
-            system("cls");
+            
+            
             system("pause");
+            system("cls");
         }else if(input == "2"){
             string name, blank = "";
             cout << "Enter macro name: ";
