@@ -24,6 +24,7 @@ class VKs{
         VKs(void);
         void printArchive(void);
         int isVK(string input);
+        int getArchiveElement(int i);
     private:
         const vector<tuple<string, int>> archive;
 };

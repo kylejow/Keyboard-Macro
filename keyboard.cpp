@@ -34,12 +34,13 @@ nlohmann::ordered_json createBasic(void){
 nlohmann::ordered_json createAdvanced(void){
     VKs VKs;
     system("cls");
-    cout << "WARNING: ENSURE EVERY KEY PRESS HAS A KEY RELEASE\n";
     nlohmann::ordered_json macro;
     string key = "Enter key: ",
            delay = "Enter  duration in milliseconds: ",
            input;
     vector<tuple<string, int>> inputs;
+    cout << "WARNING: ENSURE EVERY KEY PRESS HAS A KEY RELEASE\n\n";
+    system("pause");
     while(1){
         system("cls");
         printAdv(inputs);
@@ -48,6 +49,7 @@ nlohmann::ordered_json createAdvanced(void){
              << "3. Add delay\n"
              << "4. Finish and save\n\n";
         cin >> input;
+        system("cls");
         if(input == "1"){
             inputs.push_back({"press", getVKInput(VKs)});
         }else if(input == "2"){
@@ -110,7 +112,7 @@ int getVKInput(VKs& VKs){
         }else{
             int x = VKs.isVK(input);
             if(x > -1){
-                return x;
+                return VKs.getArchiveElement(x);
             }
         }
         cin.clear();
@@ -200,10 +202,14 @@ void VKs::printArchive(void){
 int VKs::isVK(string input){//returns index of VK from archive, else return -1
     for(long long unsigned int i = 0; i < archive.size(); i++){
         if(input == std::get<0>(archive[i])){
-            return std::get<1>(archive[i]);
+            return i;//std::get<1>(archive[i]);
         }
     }
     return -1;
+}
+
+int VKs::getArchiveElement(int i){
+    return std::get<1>(archive[i]);
 }
 
 VKs::VKs() : archive ({{"backspace", VK_BACK},

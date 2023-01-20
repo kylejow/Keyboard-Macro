@@ -55,12 +55,13 @@ int main(){
             }
             string name = chooseFromSaved(savedMacros);
             system("cls");
+            cout << "Starting in " << startDelay << "ms.\n\n";
+            Sleep(startDelay);
             if(savedMacros[name]["type"] == "basic"){
                 vector<char> keys = savedMacros[name]["keys"];
                 vector<int> holds = savedMacros[name]["holds"];
                 vector<int> delays = savedMacros[name]["delays"];
                 system("cls");
-                Sleep(startDelay);
                 cout << "Running...\n\n";
                 for(unsigned long long int i = 0; i < keys.size(); i++){
                     cout << keys[i]   << " {down}\n"
@@ -87,8 +88,7 @@ int main(){
                     }
                 }
             }
-            
-            
+            cout << "\n\n\n";
             system("pause");
             system("cls");
         }else if(input == "2"){
