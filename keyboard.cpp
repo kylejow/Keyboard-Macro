@@ -41,22 +41,38 @@ nlohmann::ordered_json createAdvanced(void){
     vector<tuple<string, int>> inputs;
     cout << "WARNING: ENSURE EVERY KEY PRESS HAS A KEY RELEASE\n\n";
     system("pause");
+    vector<int> pressed;
     while(1){
         system("cls");
         printAdv(inputs);
         cout << "1. Key press\n"
              << "2. Key release\n"
              << "3. Add delay\n"
-             << "4. Finish and save\n\n";
+             << "4. Release all keys\n"
+             << "5. Finish and save\n\n";
         cin >> input;
         system("cls");
         if(input == "1"){
-            inputs.push_back({"press", getVKInput(VKs)});
+            int x = getVKInput(VKs);
+            inputs.push_back({"press", x});
+            pressed.push_back(x);
         }else if(input == "2"){
-            inputs.push_back({"release", getVKInput(VKs)});
-        }else if(input == "3"){   
+            int x = getVKInput(VKs);
+            inputs.push_back({"release", x});
+            for(auto it = pressed.begin(); it != pressed.end(); it++){
+                if(*it == x){
+                    pressed.erase(it);
+                    break;
+                }
+            }
+        }else if(input == "3"){
             inputs.push_back({"delay", getIntInput(delay)});
         }else if(input == "4"){
+            for(auto it = pressed.begin(); it != pressed.end(); it++){
+                inputs.push_back({"release", *it});
+            }
+            pressed.clear();
+        }else if(input == "5"){
             system("cls");
             break;
         }else{
