@@ -33,6 +33,7 @@ int main(){
     }
     load.close();
     string input;
+    VKs VKs;
     int startDelay = 1500;
     while(1){
         system("cls");
@@ -128,7 +129,7 @@ int main(){
                 printBasic(keys, holds, delays);
             }else{
                 vector<tuple<string, int>> inputs = savedMacros[name]["macro"];
-                printAdv(inputs);
+                printAdv(inputs, VKs);
             }
             
             cout << "\n";
@@ -187,7 +188,6 @@ int main(){
             prompt = "New macro execute delay in milliseconds: ";
             startDelay = getIntInput(prompt);
         }else if(input == "10"){
-            VKs VKs;
             VKs.printArchive();
             system("pause");
         }else if(input == "q"){

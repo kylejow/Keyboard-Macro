@@ -44,7 +44,7 @@ nlohmann::ordered_json createAdvanced(void){
     vector<int> pressed;
     while(1){
         system("cls");
-        printAdv(inputs);
+        printAdv(inputs, VKs);
         cout << "1. Key press\n"
              << "2. Key release\n"
              << "3. Add delay\n"
@@ -95,14 +95,14 @@ void printBasic(vector<char>& keys, vector<int>& holds, vector<int>& delays){
     return;
 }
 
-void printAdv(vector<tuple<string, int>> inputs){
+void printAdv(vector<tuple<string, int>> inputs, VKs VKs){
     for(unsigned long long int i = 0; i < inputs.size(); i++){
         auto type = std::get<0>(inputs[i]);
         auto x = std::get<1>(inputs[i]);
         if(type == "press"){
-            cout << i+1 << ". "<< x << " {down}\n";
+            cout << i+1 << ". "<< VKs.getArchiveElement(x) << " {down}\n";
         }else if(type == "release"){
-            cout << i+1 << ". "<< x << " {up}\n";
+            cout << i+1 << ". "<< VKs.getArchiveElement(x) << " {up}\n";
         }else if(type == "delay"){
             cout << i+1 << ". " << "Waiting " << x << "ms\n";
         }
@@ -128,7 +128,7 @@ int getVKInput(VKs& VKs){
         }else{
             int x = VKs.isVK(input);
             if(x > -1){
-                return VKs.getArchiveElement(x);
+                return x;
             }
         }
         cin.clear();
@@ -209,7 +209,7 @@ void VKs::printArchive(void){
     system("cls");
     cout << "Keys:\n\n0-9\na-z\n";
     for(unsigned long long int i = 0; i < archive.size(); i++){
-        cout << std::get<0>(archive[i]) << "\n";
+        if(archive[i] != "") cout << archive[i] << "\n";
     }
     cout << "\n\n";
     return;
@@ -217,92 +217,95 @@ void VKs::printArchive(void){
 
 int VKs::isVK(string input){//returns index of VK from archive, else return -1
     for(long long unsigned int i = 0; i < archive.size(); i++){
-        if(input == std::get<0>(archive[i])){
+        if(input == archive[i]){
             return i;//std::get<1>(archive[i]);
         }
     }
     return -1;
 }
 
-int VKs::getArchiveElement(int i){
-    return std::get<1>(archive[i]);
+string VKs::getArchiveElement(int i){
+    return archive[i];
 }
 
-VKs::VKs() : archive ({{"backspace", VK_BACK},
-                        {"tab", VK_TAB},
-                        {"clear", VK_CLEAR},
-                        {"enter", VK_RETURN},
-                        {"shift", VK_SHIFT},
-                        {"control", VK_CONTROL},
-                        {"alt", VK_MENU},
-                        {"pause", VK_PAUSE},
-                        {"capslock", VK_CAPITAL},
-                        {"esc", VK_ESCAPE},
-                        {"pageup", VK_PRIOR},
-                        {"pagedown", VK_NEXT},
-                        {"end", VK_END},
-                        {"home", VK_HOME},
-                        {"left", VK_LEFT},
-                        {"up", VK_UP},
-                        {"right", VK_RIGHT},
-                        {"down", VK_DOWN},
-                        {"select", VK_SELECT},
-                        {"print", VK_PRINT},
-                        {"execute", VK_EXECUTE},
-                        {"printscreen", VK_SNAPSHOT},
-                        {"insert", VK_INSERT},
-                        {"delete", VK_DELETE},
-                        {"help", VK_HELP},
-                        {"Lwindows", VK_LWIN},
-                        {"Rwindows", VK_RWIN},
-                        {"applications", VK_APPS},
-                        {"sleep", VK_SLEEP},
-                        {"numlock", VK_NUMLOCK},
-                        {"scrolllock", VK_SCROLL},
-                        {"Lshift", VK_LSHIFT},
-                        {"Rshift", VK_RSHIFT},
-                        {"Lcontrol", VK_LCONTROL},
-                        {"Rcontrol", VK_RCONTROL},
-                        {"Lalt", VK_LMENU},
-                        {"Ralt", VK_RMENU},
-                        {"browserback", VK_BROWSER_BACK},
-                        {"browserforward", VK_BROWSER_FORWARD},
-                        {"browserrefresh", VK_BROWSER_REFRESH},
-                        {"browserstop", VK_BROWSER_STOP},
-                        {"browsersearch", VK_BROWSER_SEARCH},
-                        {"browserfavorites", VK_BROWSER_FAVORITES},
-                        {"browserhome", VK_BROWSER_HOME},
-                        {"volumemute", VK_VOLUME_MUTE},
-                        {"volumedown", VK_VOLUME_DOWN},
-                        {"volumeup", VK_VOLUME_UP},
-                        {"nextmedia", VK_MEDIA_NEXT_TRACK},
-                        {"previousmedia", VK_MEDIA_PREV_TRACK},
-                        {"stopmedia", VK_MEDIA_STOP},
-                        {"playpausemedia", VK_MEDIA_PLAY_PAUSE},
-                        {"launchmail", VK_LAUNCH_MAIL},
-                        {"selectmedia", VK_LAUNCH_MEDIA_SELECT},
-                        {"f1", VK_F1},
-                        {"f2", VK_F2},
-                        {"f3", VK_F3},
-                        {"f4", VK_F4},
-                        {"f5", VK_F5},
-                        {"f6", VK_F6},
-                        {"f7", VK_F7},
-                        {"f8", VK_F8},
-                        {"f9", VK_F9},
-                        {"f10", VK_F10},
-                        {"f11", VK_F11},
-                        {"f12", VK_F12},
-                        {"f13", VK_F13},
-                        {"f14", VK_F14},
-                        {"f15", VK_F15},
-                        {"f16", VK_F16},
-                        {"f17", VK_F17},
-                        {"f18", VK_F18},
-                        {"f19", VK_F19},
-                        {"f20", VK_F20},
-                        {"f21", VK_F21},
-                        {"f22", VK_F22},
-                        {"f23", VK_F23},
-                        {"f24", VK_F24}
-                        }){}
+VKs::VKs(){
+    vector<string> temp(256);
+    temp[8] = "backspace";
+    temp[9] = "tab";
+    temp[12] = "clear";
+    temp[13] = "enter";
+    temp[16] = "shift";
+    temp[17] = "control";
+    temp[18] = "alt";
+    temp[19] = "pause";
+    temp[20] = "capslock";
+    temp[27] = "esc";
+    temp[33] = "pageup";
+    temp[34] = "pagedown";
+    temp[35] = "end";
+    temp[36] = "home";
+    temp[37] = "left";
+    temp[38] = "up";
+    temp[39] = "right";
+    temp[40] = "down";
+    temp[41] = "select";
+    temp[42] = "print";
+    temp[43] = "execute";
+    temp[44] = "printscreen";
+    temp[45] = "insert";
+    temp[46] = "delete";
+    temp[47] = "help";
+    temp[91] = "Lwindows";
+    temp[92] = "Rwindows";
+    temp[93] = "applications";
+    temp[95] = "sleep";
+    temp[112] = "f1";
+    temp[113] = "f2";
+    temp[114] = "f3";
+    temp[115] = "f4";
+    temp[116] = "f5";
+    temp[117] = "f6";
+    temp[118] = "f7";
+    temp[119] = "f8";
+    temp[120] = "f9";
+    temp[121] = "f10";
+    temp[122] = "f11";
+    temp[123] = "f12";
+    temp[124] = "f13";
+    temp[125] = "f14";
+    temp[126] = "f15";
+    temp[127] = "f16";
+    temp[128] = "f17";
+    temp[129] = "f18";
+    temp[130] = "f19";
+    temp[131] = "f20";
+    temp[132] = "f21";
+    temp[133] = "f22";
+    temp[134] = "f23";
+    temp[135] = "f24";
+    temp[144] = "numlock";
+    temp[145] = "scrolllock";
+    temp[160] = "Lshift";
+    temp[161] = "Rshift";
+    temp[162] = "Lcontrol";
+    temp[163] = "Rcontrol";
+    temp[164] = "Lalt";
+    temp[165] = "Ralt";
+    temp[166] = "browserback";
+    temp[167] = "browserforward";
+    temp[168] = "browserrefresh";
+    temp[169] = "browserstop";
+    temp[170] = "browsersearch";
+    temp[171] = "browserfavorites";
+    temp[172] = "browserhome";
+    temp[173] = "volumemute";
+    temp[174] = "volumedown";
+    temp[175] = "volumeup";
+    temp[176] = "nextmedia";
+    temp[177] = "previousmedia";
+    temp[178] = "stopmedia";
+    temp[179] = "playpausemedia";
+    temp[180] = "launchmail";
+    temp[181] = "selectmedia";
+    archive = temp;
+}

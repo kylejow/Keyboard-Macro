@@ -24,15 +24,15 @@ class VKs{
         VKs(void);
         void printArchive(void);
         int isVK(string input);
-        int getArchiveElement(int i);
+        string getArchiveElement(int i);
     private:
-        const vector<tuple<string, int>> archive;
+        vector<string> archive;
 };
 
 nlohmann::ordered_json createBasic(void);
 nlohmann::ordered_json createAdvanced(void);
 void printBasic(vector<char>& keys, vector<int>& holds, vector<int>& delays);
-void printAdv(vector<tuple<string, int>> inputs);
+void printAdv(vector<tuple<string, int>> inputs, VKs VKs);
 int getVKInput(VKs& Vks);
 void sendChar(char c, int duration);
 void sendVK(int VK, int duration);
