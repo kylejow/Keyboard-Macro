@@ -39,5 +39,7 @@ void sendVK(int VK, int duration);
 void sendVKCombo(vector<int> VKs, int duration);
 void sendVKDown(int VK);
 void sendVKUp(int VK);
+void runBasic(vector<char>& keys, vector<int>& holds, vector<int>& delays);
+void runAdv(vector<tuple<string, int>>& inputs);
 
 #endif
