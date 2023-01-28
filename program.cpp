@@ -79,7 +79,6 @@ int selectDelay(int keys){
     cout << prompt;
     cin >> i;
     while(cin.fail() || i < 1 || i > keys*2){
-
         cin.clear();
         cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
         clearLastLine();

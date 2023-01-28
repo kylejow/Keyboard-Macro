@@ -140,11 +140,23 @@ int main(){
                     savedMacros[name]["delays"][newTime/2-1] = getIntInput(prompt);
                 }
             }else{
-                // vector<tuple<string, int>> inputs = savedMacros[name]["macro"];
-                // for(unsigned long long int i = 0; i < inputs.size(); i++){
-                //     cout << i+1 << ". "
-                // }
-                //printAdv(vector<tuple<string, int>> inputs, VKs VKs);
+                vector<tuple<string, int>> inputs = savedMacros[name]["macro"];
+                printAdv(inputs, VKs);
+                cout << "\n";
+                string prompt = "Select delay to edit: ";
+                int i;
+                cout << prompt;
+                cin >> i;
+                while(cin.fail() || i < 1 || i > (int)inputs.size() || std::get<0>(inputs[i-1]) != "delay"){
+                    cin.clear();
+                    cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+                    clearLastLine();
+                    cout << prompt;
+                    cin >> i;
+                }
+                prompt = "New delay in milliseconds: ";
+                int newDelay = getIntInput(prompt);
+                savedMacros[name]["macro"][i-1] = std::make_tuple("delay", newDelay);
             }
             saveToFile("profile.json", savedMacros);
         }else if(input == "6"){
