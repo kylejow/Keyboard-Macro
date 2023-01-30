@@ -257,11 +257,15 @@ int VKs::isVK(string input){//returns index of VK from archive, else return -1
 }
 
 string VKs::getArchiveElement(int i){
+
     return archive[i];
 }
 
 VKs::VKs(){
     vector<string> temp(256);
+    for(int i = 0x30; i < 0x5A; i++){
+        temp[i] = (char)i;
+    }
     temp[8] = "backspace";
     temp[9] = "tab";
     temp[12] = "clear";
@@ -272,6 +276,7 @@ VKs::VKs(){
     temp[19] = "pause";
     temp[20] = "capslock";
     temp[27] = "esc";
+    temp[32] = "space";
     temp[33] = "pageup";
     temp[34] = "pagedown";
     temp[35] = "end";
