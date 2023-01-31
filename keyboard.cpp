@@ -257,7 +257,6 @@ int VKs::isVK(string input){//returns index of VK from archive, else return -1
 }
 
 string VKs::getArchiveElement(int i){
-
     return archive[i];
 }
 
@@ -344,5 +343,13 @@ VKs::VKs(){
     temp[179] = "playpausemedia";
     temp[180] = "launchmail";
     temp[181] = "selectmedia";
+    temp[246] = "attn";
+    temp[247] = "crsel";
+    temp[VK_ATTN] = "attn";
+    temp[VK_CRSEL] = "CrSel";
+    temp[VK_EREOF] = "eraseEOF";
+    temp[VK_PLAY] = "play";
+    temp[VK_ZOOM] = "zoom";
+    temp[VK_CLEAR] = "clear";
     archive = temp;
 }
