@@ -26,15 +26,18 @@ using std::ref;
 int main(){
     string filename, prompt;
     nlohmann::ordered_json savedMacros;
+    int startDelay = 2000;
     std::ifstream load("profile.json");
     if(load){
         savedMacros = nlohmann::ordered_json::parse(load);
+        startDelay = savedMacros["start"];
         saveToFile("backup.json", savedMacros);
+    }else{
+        savedMacros["start"] = startDelay;
     }
     load.close();
     string input;
     VKs VKs;
-    int startDelay = 1500;
     while(1){
         system("cls");
         cout << "1. Run saved macro\n"
@@ -185,6 +188,8 @@ int main(){
         }else if(input == "9"){
             prompt = "New macro execute delay in milliseconds: ";
             startDelay = getIntInput(prompt);
+            savedMacros["start"] = startDelay;
+            saveToFile("profile.json", savedMacros);
         }else if(input == "10"){
             VKs.printArchive();
             system("pause");
